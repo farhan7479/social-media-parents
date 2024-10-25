@@ -2,7 +2,6 @@
 const express = require('express');
 const connectDB = require('./config/conn.js'); // Use require for conn.js
 const parentRoutes = require('./routes/parentRoute.js'); // Assume you have this file
-const circleRoutes = require('./routes/circleRoute.js'); // Assume you have this file
 const postRoutes = require('./routes/postRoute.js');
 const dotenv = require('dotenv'); // Use require for dotenv
 
@@ -16,7 +15,7 @@ connectDB(); // Call the function to connect to the database
 
 // Routes
 app.use('/api/parents', parentRoutes);
-app.use('/api/circles', circleRoutes);
+
 app.use('/api/posts' , postRoutes)
 
 // Start server

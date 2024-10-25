@@ -22,10 +22,15 @@ exports.signupParent = async (req, res) => {
         const circlesToCreate = [
             `${schoolName}`,
             `Class ${grade}, ${schoolName}`,
-            `Section ${section}, ${schoolName}`,
-            community,
-            `${community}, ${schoolName}`
+            `Section ${section}, Class ${grade}, ${schoolName}`
         ];
+
+        if (community) {
+            circlesToCreate.push(
+                community,
+                `${community}, ${schoolName}`
+            );
+        }
 
         const findOrCreateCircle = async (circleName) => {
             let circle = await Circle.findOne({ name: circleName });
@@ -33,7 +38,6 @@ exports.signupParent = async (req, res) => {
                 circle = new Circle({ name: circleName });
                 await circle.save();
             }
-            // Add the parent to the circle's members if not already present
             if (!circle.members.includes(newParent._id)) {
                 circle.members.push(newParent._id);
                 await circle.save();
@@ -53,41 +57,7 @@ exports.signupParent = async (req, res) => {
 };
 
 
-// Export the upload middleware and controller
 
-
-// Join Circle
-exports.joinCircle = async (req, res) => {
-    const { parentId, childSchoolId, grade, section, society } = req.body;
-
-    try {
-        // Find or create circles
-        const schoolCircle = await Circle.findOne({ name: childSchoolId }) || await Circle.create({ name: childSchoolId, circleType: 'School', members: [] });
-        const classCircle = await Circle.findOne({ name: `${grade}, ${childSchoolId}` }) || await Circle.create({ name: `${grade}, ${childSchoolId}`, circleType: 'Class', members: [] });
-        const sectionCircle = await Circle.findOne({ name: `${section}, ${grade}, ${childSchoolId}` }) || await Circle.create({ name: `${section}, ${grade}, ${childSchoolId}`, circleType: 'Section', members: [] });
-        const societyCircle = society ? await Circle.findOne({ name: society }) || await Circle.create({ name: society, circleType: 'Society', members: [] }) : null;
-
-        // Add parent to circles
-        const circles = [schoolCircle, classCircle, sectionCircle, societyCircle].filter(Boolean);
-        circles.forEach(async (circle) => {
-            if (!circle.members.includes(parentId)) {
-                circle.members.push(parentId);
-                await circle.save();
-            }
-        });
-
-        // Add circles to parent
-        const parent = await Parent.findByIdAndUpdate(parentId, {
-            $addToSet: {
-                socialCircles: circles.map(circle => ({ circleId: circle._id, circleType: circle.circleType }))
-            }
-        }, { new: true });
-
-        res.json({ message: "Parent joined the circles successfully", circlesJoined: circles.map(circle => circle._id) });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 
 // Get Parent's Circles
 exports.getParentCircles = async (req, res) => {

@@ -20,6 +20,6 @@ router.post('/replies', isParentInCircle, replyToPost);
 router.post('/replies/replies', isParentInCircle, replyToReply);
 
 // Vote on a Post or Reply
-router.post('/posts/vote', isParentInCircle, votePost);
+router.post('/vote', isParentInCircle, votePost);
 
 module.exports = router;

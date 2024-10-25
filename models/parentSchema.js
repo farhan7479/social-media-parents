@@ -23,3 +23,6 @@ const parentSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Parent', parentSchema);
+
+ 
+

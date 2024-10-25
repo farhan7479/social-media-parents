@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { signupParent ,joinCircle, getParentCircles} = require("../controllers/parentController");
+const { signupParent ,joinCircle, getParentCircles} = require("../controllers/parentController.js");
 
 router.post("/signup",  signupParent); 
 // Join Circle
