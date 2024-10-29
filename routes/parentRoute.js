@@ -1,4 +1,4 @@
-// routes/parentRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const JwtVerify = require('../middleware/parentAuthenticate');

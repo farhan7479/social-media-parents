@@ -1,4 +1,4 @@
-// controllers/parentController.js
+
 const Parent = require('../models/parentSchema.js');
 const Circle = require('../models/circleSchema.js');
 const bcrypt = require('bcrypt');
