@@ -1,14 +1,15 @@
 // routes/parentRoutes.js
 const express = require('express');
 const router = express.Router();
+const JwtVerify = require('../middleware/parentAuthenticate');
 
-const { signupParent , getParentCircles} = require("../controllers/parentController.js");
+const { signupParent ,  loginParent, updateParentDetails} = require("../controllers/parentController.js");
 
 router.post("/signup",  signupParent); 
-// Join Circle
+router.post("/login",  loginParent);
+router.put('/update-parent',JwtVerify, updateParentDetails);
 
 
-// Get Parent's Circles
-router.get('/:parentId/circles', getParentCircles);
+
 
 module.exports = router;

@@ -19,7 +19,7 @@ app.use('/api/parents', parentRoutes);
 app.use('/api/posts' , postRoutes)
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8070;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

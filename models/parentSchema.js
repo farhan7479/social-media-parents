@@ -13,9 +13,12 @@ const parentSchema = new mongoose.Schema({
     socialCircles: [
         {
             circleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Circle' },
-            circleName: { type: String } 
+            circleName: { type: String } ,
+            discoverability: { type: String , default: false}
         }
     ],
+    email: { type: String},
+    password: { type: String, required: true },
     grade: { type: String, required: true }, 
     section: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },

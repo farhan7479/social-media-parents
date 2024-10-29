@@ -1,13 +1,4 @@
-// /models/Post.js
 const mongoose = require('mongoose');
-
-const replySchema = new mongoose.Schema({
-    parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Parent', required: true },
-    content: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-    votes: { type: Number, default: 0 },
-    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reply' }]
-});
 
 const postSchema = new mongoose.Schema({
     parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Parent', required: true },
@@ -15,8 +6,13 @@ const postSchema = new mongoose.Schema({
     content: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     votes: { type: Number, default: 0 },
-    replies: [replySchema] 
+    voters: [
+        {
+            parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Parent' },
+            voteType: { type: String, enum: ['upvote', 'downvote'] }
+        }
+    ],
+    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reply' }] 
 });
 
 module.exports = mongoose.model('Post', postSchema);
-
