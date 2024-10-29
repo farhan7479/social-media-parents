@@ -4,7 +4,7 @@ const connectDB = require('./config/conn.js');
 const parentRoutes = require('./routes/parentRoute.js'); 
 const postRoutes = require('./routes/postRoute.js');
 const dotenv = require('dotenv'); 
-
+const morgan = require('morgan');
 dotenv.config(); 
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(express.json());
 
 connectDB(); 
 
-
+app.use(morgan('combined'));
 app.use('/api/parents', parentRoutes);
 
 app.use('/api/posts' , postRoutes)
