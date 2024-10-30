@@ -19,6 +19,7 @@ const authenticateParent = (req, res, next) => {
 
             
             req.parentId = decoded.parentId;
+            console.log(req.parentId);
             next();
         });
     } catch (error) {

@@ -7,7 +7,11 @@ const circleSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     type: { type: String, enum: ['auto-joined', 'opt-in'], default: 'auto-joined' },
-    discoverability: { type: Boolean, default: false }
+    discoverability: { type: Boolean, default: false },
+    subCircles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Circle'
+    }]
 });
 
 module.exports = mongoose.model('Circle', circleSchema);
